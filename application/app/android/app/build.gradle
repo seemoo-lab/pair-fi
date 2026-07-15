@@ -1,0 +1,95 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+def dartEnvironmentVariables = []
+if (project.hasProperty('dart-defines')) {
+    dartEnvironmentVariables = project.property('dart-defines')
+            .split(',')
+            .collectEntries { entry ->
+                def pair = new String(entry.decodeBase64(), 'UTF-8').split('=')
+                [(pair.first()): pair.last()]
+            }
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    println "Using keystorePropertiesFile"
+    println keystorePropertiesFile
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+} else if (dartEnvironmentVariables.KEY_PASSWORD) {
+    println "Using dart-defined variable as KEY_PASSWORD"
+    keystoreProperties.setProperty('storeFile', '../../Keystore/upload-keystore.jks')
+    keystoreProperties.setProperty('keyAlias', 'upload')
+    keystoreProperties.setProperty('keyPassword', dartEnvironmentVariables.KEY_PASSWORD)
+    keystoreProperties.setProperty('storePassword', dartEnvironmentVariables.KEY_PASSWORD)
+} else {
+    println "No key properties defined"
+}
+
+//android {
+//    ...
+//}
+
+
+android {
+    compileSdkVersion 34
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        applicationId "de.seemoo.pairsonic"
+        minSdkVersion 23 //was 16
+        targetSdkVersion 34
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation 'com.android.support:multidex:2.0.1' //enter the latest multidex version
+    implementation 'androidx.work:work-runtime-ktx:2.8.0-alpha03'
+    implementation 'com.google.android.material:material:1.12.0'
+}
