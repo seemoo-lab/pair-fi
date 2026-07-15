@@ -1,0 +1,6 @@
+id=pairfi-nexmon-magisk
+name=pairfi-nexmon-magisk
+version=1.0
+versionCode=1
+author=Jakob Link <jlink@seemoo.de>
+description=Install Pair-Fi firmware. See https://doi.org/10.1145/3765613.3811679 for more details.

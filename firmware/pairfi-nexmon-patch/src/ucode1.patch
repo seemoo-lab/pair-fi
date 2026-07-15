@@ -1,0 +1,119 @@
+0a1,57
+> /* scratch registers */
+> #define	SCR_TMP0		r33
+> #define	SCR_TMP1		r34
+> #define	SCR_TMP2		r35
+> #define	SCR_TMP3		r36
+> #define	SCR_TMP4		r37
+> #define	SCR_TMP5		r38
+> 
+> /* internal hardware registers */
+> #define	IHR_TSF_GPT_0_STAT	spr100
+> #define	IHR_PSM_SLEEP_TMR	spr1c0
+> #define	IHR_PSM_MAC_INTSTAT_L	spr1c2
+> #define	IHR_PSM_BASE_5		spr225
+> 
+> /* shared memory */
+> #define	SHM(address)		(((address) / 2) + (%assert((address & 1) == 0)))
+> #define	M_DEBUG_BASE		0x3100
+> #define	M_DEBUG(id)		SHM((M_DEBUG_BASE+2*id))
+> #define	M_CONFIG_BASE		0x3200
+> #define	M_CONFIG(id)		SHM((M_CONFIG_BASE+2*id))
+> #define	M_OOK_ENABLE		M_CONFIG(0)
+> #define	M_OOK_STOP		M_CONFIG(1)
+> #define	M_OOK_N_LOW		M_CONFIG(2)
+> #define	M_OOK_LOW_IDX		M_CONFIG(3)
+> #define	M_OOK_N_HIGH		M_CONFIG(4)
+> #define	M_OOK_HIGH_IDX		M_CONFIG(5)
+> #define	M_OOK_MSG_LEN		M_CONFIG(6)
+> #define	M_OOK_MSG(idx)		M_CONFIG(7+idx)
+> 
+> /* phyreg */
+> #define	ACPHY_sampleDepthCount	0x463
+> #define	ACPHY_sampleStartAddr	0x465
+> #define phy_reg_write(addr, value) \
+> 	mov addr, SCR_TMP0 \
+> 	mov value, SCR_TMP1 \
+> 	calls	L73
+> 
+> /* on-off keying */
+> #define sleep_8th(s) \
+> 	mov	(s), IHR_PSM_SLEEP_TMR \
+> 	napv	0x400
+> 
+> #define sleep_us(us) \
+> 	mov	((us)*8), IHR_PSM_SLEEP_TMR \
+> 	napv	0x400
+> 
+> #define ook_low \
+> 	phy_reg_write(ACPHY_sampleStartAddr, [M_OOK_LOW_IDX]) \
+> 	phy_reg_write(ACPHY_sampleDepthCount, [M_OOK_N_LOW])
+> 
+> #define ook_high \
+> 	phy_reg_write(ACPHY_sampleStartAddr, [M_OOK_HIGH_IDX]) \
+> 	phy_reg_write(ACPHY_sampleDepthCount, [M_OOK_N_HIGH])
+> 
+> /* simplified instructions */
+> #define	jump	"jext	0x5F, "
+> 
+10a68,127
+> /* Pair-Fi OOK block begin */
+> 	xjne	[M_OOK_ENABLE], 1, ook_skip+
+> 	/* backup values */
+> 	mov	SCR_TMP3, [M_DEBUG(0)]
+> 	mov	SCR_TMP4, [M_DEBUG(1)]
+> 	mov	SCR_TMP5, [M_DEBUG(2)]
+> 	mov	IHR_PSM_BASE_5, [M_DEBUG(3)]
+> 	mov	IHR_PSM_MAC_INTSTAT_L, [M_DEBUG(4)]
+> 	mov	IHR_TSF_GPT_0_STAT, [M_DEBUG(5)]
+> 	orxh	0x0000, IHR_TSF_GPT_0_STAT & ~0x8000, IHR_TSF_GPT_0_STAT // prevent error out on GP0 interrupt
+> ook_loop:
+> 	/* init */
+> 	mov	0x1, IHR_PSM_MAC_INTSTAT_L // fake mac suspend to prevent hang trigger (refresh regularly)
+> 	mov	[M_OOK_MSG_LEN], SCR_TMP5 // msg len counter
+> 	xje	SCR_TMP5, 0, out+ // skip null msg
+> 	mov	M_OOK_MSG(0), IHR_PSM_BASE_5 // load msg base to offset register base
+> 	/* preamble tx 111000 */
+> 	ook_high
+> 	sleep_8th(84)
+> 	ook_low
+> 	sleep_us(12)
+> msg_loop:
+> 	/* for each 16-bit manchester encoded byte in msg */
+> 	mov	[0x0,off5], SCR_TMP3 // move current manchester byte from shm to scr
+> 	mov	16, SCR_TMP4 // init bit counter
+> bit_loop:
+> 	/* for each bit in current 16-bit manchester encoded byte */
+> 	jzxh	SCR_TMP3 & 0x8000, is_zero+ // test most significant bit
+> 	jnzxh	SCR_TMP3 & 0x8000, is_one+ // test most significant bit
+> is_one:
+> 	/* tx 1 */
+> 	ook_high
+> 	sleep_8th(28)
+> 	jump	step+
+> is_zero:
+> 	/* tx 0 */
+> 	ook_low
+> 	sleep_us(4)
+> 	jump	step+
+> step:
+> 	sl	SCR_TMP3, 1, SCR_TMP3 // move bit position (left because we test msb)
+> 	xsub	SCR_TMP4, 1, SCR_TMP4 // reduce bit counter
+> 	xjne	SCR_TMP4, 0, bit_loop-
+> 	xsub	SCR_TMP5, 1, SCR_TMP5 // reduce msg len counter
+> 	xadd	IHR_PSM_BASE_5, 1, IHR_PSM_BASE_5 // step msg position
+> 	xjne	SCR_TMP5, 0, msg_loop-
+> 	xjne	[M_OOK_STOP], 1, ook_loop- // loop until stop cmd
+> 	ook_low // go low
+> out:
+> 	/* restore backed values */
+> 	mov	[M_DEBUG(5)], IHR_TSF_GPT_0_STAT
+> 	mov	[M_DEBUG(4)], IHR_PSM_MAC_INTSTAT_L
+> 	mov	[M_DEBUG(3)], IHR_PSM_BASE_5
+> 	mov	[M_DEBUG(2)], SCR_TMP5
+> 	mov	[M_DEBUG(1)], SCR_TMP4
+> 	mov	[M_DEBUG(0)], SCR_TMP3
+> 	/* disable ook flag */
+> 	mov	0, [M_OOK_ENABLE]
+> ook_skip:
+> /* Pair-Fi OOK block end */
