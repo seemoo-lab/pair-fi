@@ -1,0 +1,45 @@
+name: Application build
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+    paths:
+      - "application/**"
+      - ".github/workflows/application-build.yml"
+
+  pull_request:
+    paths:
+      - "application/**"
+      - ".github/workflows/application-build.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: application-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Android ARM64 Community APK
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Build application
+        run: bash application/docker/build.sh
+
+      - name: Verify application build
+        run: |
+          set -euo pipefail
+          test -s application/dist/app-arm64-v8a-release.apk
+          echo "Application build completed successfully."
