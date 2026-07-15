@@ -1,0 +1,34 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  Pair-Fi: Integrity Code Protected Secure Device Pairing
+  via SDR-Enabled Wi-Fi Chips on Smartphones
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file or the citation information found on the paper wesbite.
+type: software
+authors:
+  - given-names: Jakob
+    family-names: Link
+    email: jlink@seemoo.de
+    affiliation: 'SEEMOO, TU Darmstadt, Germany'
+    orcid: 'https://orcid.org/0000-0003-1068-6053'
+  - given-names: Florentin
+    family-names: Putz
+    email: fputz@seemoo.de
+    affiliation: 'SEEMOO, TU Darmstadt, Germany'
+    orcid: 'https://orcid.org/0000-0003-3122-7315'
+  - given-names: Matthias
+    family-names: Hollick
+    email: mhollick@seemoo.de
+    affiliation: 'SEEMOO, TU Darmstadt, Germany and IMDEA Networks Institute, Madrid, Spain'
+    orcid: 'https://orcid.org/0000-0002-9163-5989'
+identifiers:
+  - type: doi
+    value: 10.1145/3765613.3811679
+  - type: url
+    value: 'https://doi.org/10.1145/3765613.3811679'
+repository-code: 'https://github.com/seemoo-lab/pair-fi'
+license: GPL-3.0 (firmware patch), Apache-2.0 (application), CC-BY-4.0 (paper)
