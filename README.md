@@ -1,9 +1,6 @@
+![Android Application](https://github.com/seemoo-lab/pair-fi/actions/workflows/application-build.yml/badge.svg) ![Nexmon Wi-Fi Firmware](https://github.com/seemoo-lab/pair-fi/actions/workflows/firmware-build.yml/badge.svg)
 # Pair-Fi: Integrity Code Protected Secure Device Pairing via SDR-Enabled Wi-Fi Chips on Smartphones
 TBD
-
-# Build status
-![Android Application](https://github.com/seemoo-lab/pair-fi/actions/workflows/application-build.yml/badge.svg)  
-![Nexmon Wi-Fi Firmware](https://github.com/seemoo-lab/pair-fi/actions/workflows/firmware-build.yml/badge.svg)
 
 # Reference this project
 Any use of this project which results in an academic publication or other publication which includes a bibliography should include a citation to our Pair-Fi paper:  
