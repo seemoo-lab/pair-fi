@@ -53,6 +53,14 @@ Uint8List randomBytes(int len) {
   return result;
 }
 
+String randomString(int len) {
+  var result = Uint8List(len);
+  for (int i = 0; i < len; i++) {
+    result[i] = _secureRandomness.nextInt(94) + 33; // >= 33 and < 126
+  }
+  return String.fromCharCodes(result);
+}
+
 int generateUid() {
   // return a random integer between 0 and 2^32-1
   // the probability of a collision is very small

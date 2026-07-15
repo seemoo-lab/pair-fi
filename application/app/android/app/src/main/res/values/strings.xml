@@ -1,4 +1,4 @@
 <resources>
-    <string name="servicedesc">PairSonic NFC reader</string>
-    <string name="aiddescription">PairSonic AID</string>
+    <string name="servicedesc">PairFi NFC reader</string>
+    <string name="aiddescription">PairFi AID</string>
 </resources>

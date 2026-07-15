@@ -18,20 +18,17 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(
-      _current != null,
-      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
-    );
+    assert(_current != null,
+        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name =
-        (locale.countryCode?.isEmpty ?? false)
-            ? locale.languageCode
-            : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -44,10 +41,8 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(
-      instance != null,
-      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
-    );
+    assert(instance != null,
+        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
     return instance!;
   }
 
@@ -65,34 +60,65 @@ class S {
     );
   }
 
-  /// `PairSonic`
+  /// `PairFi`
   String get appName {
-    return Intl.message('PairSonic', name: 'appName', desc: '', args: []);
+    return Intl.message(
+      //'PairFi',
+      'Pair-Fi',
+      name: 'appName',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Profile`
   String get profile {
-    return Intl.message('Profile', name: 'profile', desc: '', args: []);
+    return Intl.message(
+      'Profile',
+      name: 'profile',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Contact Exchange`
   String get pair {
-    return Intl.message('Contact Exchange', name: 'pair', desc: '', args: []);
+    return Intl.message(
+      'Contact Exchange',
+      name: 'pair',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Contacts`
   String get contacts {
-    return Intl.message('Contacts', name: 'contacts', desc: '', args: []);
+    return Intl.message(
+      'Contacts',
+      name: 'contacts',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Settings`
   String get settings {
-    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+    return Intl.message(
+      'Settings',
+      name: 'settings',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Submit`
   String get submit {
-    return Intl.message('Submit', name: 'submit', desc: '', args: []);
+    return Intl.message(
+      'Submit',
+      name: 'submit',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `No pairing data received`
@@ -117,17 +143,32 @@ class S {
 
   /// `Cancel`
   String get cancel {
-    return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Confirm`
   String get confirm {
-    return Intl.message('Confirm', name: 'confirm', desc: '', args: []);
+    return Intl.message(
+      'Confirm',
+      name: 'confirm',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `save`
   String get save {
-    return Intl.message('save', name: 'save', desc: '', args: []);
+    return Intl.message(
+      'save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `No Contacts yet.`
@@ -142,7 +183,12 @@ class S {
 
   /// `Language`
   String get language {
-    return Intl.message('Language', name: 'language', desc: '', args: []);
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Advanced Settings`
@@ -217,27 +263,52 @@ class S {
 
   /// `Name`
   String get name {
-    return Intl.message('Name', name: 'name', desc: '', args: []);
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Bio`
   String get bio {
-    return Intl.message('Bio', name: 'bio', desc: '', args: []);
+    return Intl.message(
+      'Bio',
+      name: 'bio',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Successful`
   String get successful {
-    return Intl.message('Successful', name: 'successful', desc: '', args: []);
+    return Intl.message(
+      'Successful',
+      name: 'successful',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Failed`
   String get failed {
-    return Intl.message('Failed', name: 'failed', desc: '', args: []);
+    return Intl.message(
+      'Failed',
+      name: 'failed',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Welcome`
   String get welcome {
-    return Intl.message('Welcome', name: 'welcome', desc: '', args: []);
+    return Intl.message(
+      'Welcome',
+      name: 'welcome',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Show welcome screen`
@@ -250,10 +321,10 @@ class S {
     );
   }
 
-  /// `This is the PairSonic App.`
+  /// `This is the PairFi App.`
   String get welcomeText {
     return Intl.message(
-      'This is the PairSonic App.',
+      'This is the Pair-Fi App.',
       name: 'welcomeText',
       desc: '',
       args: [],
@@ -272,7 +343,12 @@ class S {
 
   /// `Start!`
   String get go {
-    return Intl.message('Start!', name: 'go', desc: '', args: []);
+    return Intl.message(
+      'Start!',
+      name: 'go',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Please enter a name`
@@ -317,7 +393,12 @@ class S {
 
   /// `Name`
   String get labelName {
-    return Intl.message('Name', name: 'labelName', desc: '', args: []);
+    return Intl.message(
+      'Name',
+      name: 'labelName',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Bitte genter an ID`
@@ -342,22 +423,42 @@ class S {
 
   /// `ID`
   String get labelId {
-    return Intl.message('ID', name: 'labelId', desc: '', args: []);
+    return Intl.message(
+      'ID',
+      name: 'labelId',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Add contact`
   String get addContact {
-    return Intl.message('Add contact', name: 'addContact', desc: '', args: []);
+    return Intl.message(
+      'Add contact',
+      name: 'addContact',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Continue`
   String get continueText {
-    return Intl.message('Continue', name: 'continueText', desc: '', args: []);
+    return Intl.message(
+      'Continue',
+      name: 'continueText',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Switch`
   String get switchText {
-    return Intl.message('Switch', name: 'switchText', desc: '', args: []);
+    return Intl.message(
+      'Switch',
+      name: 'switchText',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Error during Processing.\nTry to move the phones closer or try again in a quiter environment.`
@@ -430,10 +531,10 @@ class S {
     );
   }
 
-  /// `For group pairing, PairSonic requires access to your microphone.`
+  /// `For group pairing, lokalfunk requires access to your microphone.`
   String get microphonePermissionRequiredDialogDescription {
     return Intl.message(
-      'For group pairing, PairSonic requires access to your microphone.',
+      'For group pairing, lokalfunk requires access to your microphone.',
       name: 'microphonePermissionRequiredDialogDescription',
       desc: '',
       args: [],
@@ -450,20 +551,20 @@ class S {
     );
   }
 
-  /// `For group pairing, PairSonic requires access to your location.`
+  /// `For group pairing, lokalfunk requires access to your location.`
   String get locationPermissionRequiredDialogDescription {
     return Intl.message(
-      'For group pairing, PairSonic requires access to your location.',
+      'For group pairing, lokalfunk requires access to your location.',
       name: 'locationPermissionRequiredDialogDescription',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please open the app settings and grant PairSonic access to your location.`
+  /// `Please open the app settings and grant lokalfunk access to your location.`
   String get locationPermissionRequiredPromptOpenAppSettings {
     return Intl.message(
-      'Please open the app settings and grant PairSonic access to your location.',
+      'Please open the app settings and grant lokalfunk access to your location.',
       name: 'locationPermissionRequiredPromptOpenAppSettings',
       desc: '',
       args: [],
@@ -492,7 +593,12 @@ class S {
 
   /// `OK`
   String get dialogButtonOK {
-    return Intl.message('OK', name: 'dialogButtonOK', desc: '', args: []);
+    return Intl.message(
+      'OK',
+      name: 'dialogButtonOK',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `CANCEL`
@@ -507,27 +613,52 @@ class S {
 
   /// `GRANT`
   String get dialogButtonGrant {
-    return Intl.message('GRANT', name: 'dialogButtonGrant', desc: '', args: []);
+    return Intl.message(
+      'GRANT',
+      name: 'dialogButtonGrant',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `LEAVE`
   String get dialogButtonLeave {
-    return Intl.message('LEAVE', name: 'dialogButtonLeave', desc: '', args: []);
+    return Intl.message(
+      'LEAVE',
+      name: 'dialogButtonLeave',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `STAY`
   String get dialogButtonStay {
-    return Intl.message('STAY', name: 'dialogButtonStay', desc: '', args: []);
+    return Intl.message(
+      'STAY',
+      name: 'dialogButtonStay',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Yes`
   String get dialogButtonYes {
-    return Intl.message('Yes', name: 'dialogButtonYes', desc: '', args: []);
+    return Intl.message(
+      'Yes',
+      name: 'dialogButtonYes',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `No`
   String get dialogButtonNo {
-    return Intl.message('No', name: 'dialogButtonNo', desc: '', args: []);
+    return Intl.message(
+      'No',
+      name: 'dialogButtonNo',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Participant`
@@ -733,7 +864,8 @@ class S {
   /// `Your contact information was exchanged successfully. Do all {size} participants have a blue lock icon on their screen?`
   String groupPairingVerificationPromptWithSize(Object size) {
     return Intl.message(
-      'Your contact information was exchanged successfully. Do all $size participants have a blue lock icon on their screen?',
+      //'Your contact information was exchanged successfully. Do all $size participants have a blue lock icon on their screen?',
+      'Your contact information was exchanged successfully. Do all $size participants have the same icon on their screen?',
       name: 'groupPairingVerificationPromptWithSize',
       desc: '',
       args: [size],
@@ -1082,7 +1214,12 @@ class S {
 
   /// `Done!`
   String get groupPairingDone {
-    return Intl.message('Done!', name: 'groupPairingDone', desc: '', args: []);
+    return Intl.message(
+      'Done!',
+      name: 'groupPairingDone',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Group of {size} people`
@@ -1240,6 +1377,16 @@ class S {
     return Intl.message(
       'Simulate failure',
       name: 'pairingFailureModeFailAlways',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Simulate failure dynamically`
+  String get pairingFailureModeWebControlled {
+    return Intl.message(
+      'Simulate failure dynamically',
+      name: 'pairingFailureModeWebControlled',
       desc: '',
       args: [],
     );
@@ -1405,10 +1552,10 @@ class S {
     );
   }
 
-  /// `Welcome to PairSonic!`
+  /// `Welcome to PairFi!`
   String get welcomeTitle {
     return Intl.message(
-      'Welcome to PairSonic!',
+      'Welcome to Pair-Fi!',
       name: 'welcomeTitle',
       desc: '',
       args: [],
@@ -1418,7 +1565,7 @@ class S {
   /// ` allows users meeting in person to exchange or verify contact information quickly and securely. The smartphones communicate directly with each other using sound waves, without relying on third parties or the Internet.`
   String get welcomeTextFirst {
     return Intl.message(
-      ' allows users meeting in person to exchange or verify contact information quickly and securely. The smartphones communicate directly with each other using sound waves, without relying on third parties or the Internet.',
+      ' allows users meeting in person to exchange or verify contact information quickly and securely. The smartphones communicate directly with each other using integrity coded wireless signals and Wi-Fi Direct, without relying on third parties or the Internet.',
       name: 'welcomeTextFirst',
       desc: '',
       args: [],
@@ -1435,10 +1582,10 @@ class S {
     );
   }
 
-  /// `Before using PairSonic, set up a profile which will be used during the contact exchange. Choose a nice profile picture, a name, and a bio. This profile is currently only used to demonstrate the contact exchange, but you can imagine it being used, for example, in a messaging context.`
+  /// `Before using PairFi, set up a profile which will be used during the contact exchange. Choose a nice profile picture, a name, and a bio. This profile is currently only used to demonstrate the contact exchange, but you can imagine it being used, for example, in a messaging context.`
   String get profileCreationHintText {
     return Intl.message(
-      'Before using PairSonic, set up a profile which will be used during the contact exchange. Choose a nice profile picture, a name, and a bio. This profile is currently only used to demonstrate the contact exchange, but you can imagine it being used, for example, in a messaging context.',
+      'Before using Pair-Fi, set up a profile which will be used during the contact exchange. Choose a nice profile picture, a name, and a bio. This profile is currently only used to demonstrate the contact exchange, but you can imagine it being used, for example, in a messaging context.',
       name: 'profileCreationHintText',
       desc: '',
       args: [],
@@ -1457,17 +1604,72 @@ class S {
 
   /// `Next`
   String get generalButtonNext {
-    return Intl.message('Next', name: 'generalButtonNext', desc: '', args: []);
+    return Intl.message(
+      'Next',
+      name: 'generalButtonNext',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Done`
   String get generalButtonDone {
-    return Intl.message('Done', name: 'generalButtonDone', desc: '', args: []);
+    return Intl.message(
+      'Done',
+      name: 'generalButtonDone',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Back`
   String get generalButtonBack {
-    return Intl.message('Back', name: 'generalButtonBack', desc: '', args: []);
+    return Intl.message(
+      'Back',
+      name: 'generalButtonBack',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contact exchange`
+  String get nexmonRunningTitle {
+    return Intl.message(
+      'Contact exchange',
+      name: 'nexmonRunningTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `User confirmation`
+  String get nexmonRunningUserConfirmationTitle {
+    return Intl.message(
+      'User confirmation',
+      name: 'nexmonRunningUserConfirmationTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Exchanging information...`
+  String get nexmonRunningExchangingInformation {
+    return Intl.message(
+      'Exchanging information...',
+      name: 'nexmonRunningExchangingInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Decrypting...`
+  String get nexmonRunningDecrypting {
+    return Intl.message(
+      'Decrypting...',
+      name: 'nexmonRunningDecrypting',
+      desc: '',
+      args: [],
+    );
   }
 
   /// `Location Services disabled`

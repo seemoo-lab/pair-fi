@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pairsonic/features/pairing/audio/grouppairing_constants.dart';
+import 'package:pairfi/features/pairing/audio/grouppairing_constants.dart';
 
 /// Dataclass containing the connection information of a Wi-Fi P2P connection.
 class WifiP2pConnectionInfo {
@@ -71,12 +71,23 @@ class WifiP2pService with WidgetsBindingObserver {
     return res;
   }
 
+  /// Creates a new Wi-Fi P2P group with a predefined config.
+  Future<bool> createGroupWithConfig(String? ssid, String? passphrase, int? frequency, int? band) async {
+    bool res = await _platform.invokeMethod('create_group_with_config', <String?, dynamic>{
+      'ssid': ssid,
+      'passphrase': passphrase,
+      'frequency' : frequency,
+      'band' : band
+    });
+    debugPrint("WifiP2pService - createGroupWithConfig: Created Wifi Group ($res)");
+    return res;
+  }
+
   /// Initializes the Wi-Fi P2P service. This function is idempotent and can be
   /// called multiple times.
   Future<void> init() async {
     bool res = await _platform.invokeMethod('init');
-    debugPrint(
-        "WifiP2pService - asyncInit: Initialized Wifi P2P Backend ($res)");
+    debugPrint("WifiP2pService - asyncInit: Initialized Wifi P2P Backend ($res)");
     await _register();
     if (_boundTo == null) {
       _boundTo = WidgetsBinding.instance;
@@ -102,6 +113,38 @@ class WifiP2pService with WidgetsBindingObserver {
     _groupInfo = null;
     _connectionInfo = null;
     debugPrint("WifiP2pService - disconnect: Disconnected ($res)");
+  }
+
+  /// Closes the current Wi-Fi P2P connection and removes service.
+  Future<void> close() async {
+    bool res = await _platform.invokeMethod('close');
+    _groupInfo = null;
+    _connectionInfo = null;
+    debugPrint("WifiP2pService - close: Closed Wifi P2P ($res)");
+  }
+
+  /// Force p2p to enter listen state.
+  Future<void> startListening() async {
+    bool res = await _platform.invokeMethod('start_listening');
+    debugPrint("WifiP2pService - startListening: Started listening ($res)");
+  }
+
+  /// Force p2p to exit listen state.
+  Future<void> stopListening() async {
+    bool res = await _platform.invokeMethod('stop_listening');
+    debugPrint("WifiP2pService - stopListening: Stopped listening ($res)");
+  }
+
+  /// Start a peer discovery.
+  Future<void> startPeerDiscovery(int? frequencyMhz) async {
+    bool res = await _platform.invokeMethod('start_peer_discovery', <String?, dynamic>{"frequencyMhz" : frequencyMhz});
+    debugPrint("WifiP2pService - startPeerDiscovery: Started peer discovery ($res)");
+  }
+
+  /// Stop a peer discovery.
+  Future<void> stopPeerDiscovery() async {
+    bool res = await _platform.invokeMethod('stop_peer_discovery');
+    debugPrint("WifiP2pService - stopPeerDiscovery: Stopped peer discovery ($res)");
   }
 
   /// Requests the currently available [WifiP2pConnectionInfo].
@@ -207,15 +250,13 @@ class WifiP2pService with WidgetsBindingObserver {
   /// Registers the native code to receive Wi-Fi P2P events.
   Future<void> _register() async {
     bool res = await _platform.invokeMethod('register');
-    debugPrint(
-        "WifiP2pService - register: Registered BroadcastReceiver ($res)");
+    debugPrint("WifiP2pService - register: Registered BroadcastReceiver ($res)");
   }
 
   /// Unregisters the native code from receiving Wi-Fi P2P events.
   Future<void> _unregister() async {
     bool res = await _platform.invokeMethod('unregister');
-    debugPrint(
-        "WifiP2pService - register: Unregistered BroadcastReceiver ($res)");
+    debugPrint("WifiP2pService - register: Unregistered BroadcastReceiver ($res)");
   }
 }
 

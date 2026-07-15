@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:pairsonic/features/settings/settings_interface.dart';
-import 'package:pairsonic/service_locator.dart';
-import 'package:pairsonic/storage/crypto_service.dart';
+import 'package:pairfi/features/settings/settings_interface.dart';
+import 'package:pairfi/service_locator.dart';
+import 'package:pairfi/storage/crypto_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'user_model.dart';

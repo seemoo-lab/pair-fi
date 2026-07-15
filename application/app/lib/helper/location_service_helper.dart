@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pairsonic/generated/l10n.dart';
+import 'package:pairfi/generated/l10n.dart';
 
 class LocationServiceHelper {
   static const channelName = "location_service";

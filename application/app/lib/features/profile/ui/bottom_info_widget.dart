@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pairsonic/features/profile/identity_service.dart';
-import 'package:pairsonic/service_locator.dart';
+import 'package:pairfi/features/profile/identity_service.dart';
+import 'package:pairfi/service_locator.dart';
 
 class BottomInfoWidget extends StatefulWidget {
   const BottomInfoWidget({super.key});

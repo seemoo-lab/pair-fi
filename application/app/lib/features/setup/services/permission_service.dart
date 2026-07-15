@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
-import 'package:pairsonic/generated/l10n.dart';
-import 'package:pairsonic/helper/device_info_service.dart';
+import 'package:pairfi/generated/l10n.dart';
+import 'package:pairfi/helper/device_info_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class PermissionService {
   /// Permissions to be used for Android 13 or later (SDK version >= 33)
   static const permissionsAfterAndroid13 = [
-    Permission.microphone,
+    //Permission.microphone,
     Permission.nearbyWifiDevices,
     Permission.locationWhenInUse,
   ];
 
   /// Permissions to be used for Android 12 or earlier (SDK version < 33)
   static const permissionsBeforeAndroid13 = [
-    Permission.microphone,
+    //Permission.microphone,
     Permission.locationWhenInUse,
   ];
 
@@ -60,11 +60,6 @@ class PermissionService {
 
   Future<List<(String, String)>> getPermissionNamesAndDescriptions(
       BuildContext context) async {
-    final microphone = (
-      S.of(context).permissionScreenNameMicrophone,
-      S.of(context).permissionScreenDescriptionMicrophone
-    );
-
     final nearbyDevices = (
       S.of(context).permissionScreenNameNearbyDevices,
       S.of(context).permissionScreenDescriptionNearbyDevices
@@ -77,9 +72,9 @@ class PermissionService {
 
     final sdkVersion = await _deviceInfoService.getAndroidSDKVersion();
     if (sdkVersion >= 33) {
-      return [location, microphone, nearbyDevices];
+      return [location, nearbyDevices];
     } else {
-      return [location, microphone];
+      return [location];
     }
   }
 

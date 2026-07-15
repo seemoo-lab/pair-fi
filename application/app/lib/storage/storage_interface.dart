@@ -1,7 +1,8 @@
-import 'package:pairsonic/features/profile/user_model.dart';
+import 'package:pairfi/features/profile/user_model.dart';
 
 /// Interface that all local storage solutions need to implement
 abstract class StorageInterface {
+
   /// Initialize the storage
   Future<void> init();
 

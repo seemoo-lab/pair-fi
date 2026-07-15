@@ -1,4 +1,4 @@
-import 'package:pairsonic/features/profile/user_model.dart';
+import 'package:pairfi/features/profile/user_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 

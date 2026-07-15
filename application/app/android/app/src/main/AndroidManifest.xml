@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="de.seemoo.pairsonic">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,8 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-            android:label="PairSonic"
-            android:icon="@mipmap/pairsonic_icon">
+            android:label="Pair-Fi"
+            android:icon="@mipmap/pairfi_icon">
         <activity
                 android:name=".MainActivity"
                 android:exported="true"
@@ -36,7 +35,7 @@
                  Flutter's first frame. -->
             <meta-data
                     android:name="io.flutter.embedding.android.SplashScreenDrawable"
-                    android:resource="@color/pairsonic_icon_background"
+                    android:resource="@color/pairfi_icon_background"
             />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

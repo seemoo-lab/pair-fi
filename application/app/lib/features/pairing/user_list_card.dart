@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pairsonic/features/profile/user_model.dart';
+import 'package:pairfi/features/profile/user_model.dart';
 
 class UserListCard extends StatelessWidget {
   final User u;

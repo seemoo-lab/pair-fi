@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:pairsonic/features/pairing/audio/interfaces/grouppairing_crypto_service_interface.dart';
-import 'package:pairsonic/helper_functions.dart';
+import 'package:pairfi/features/pairing/audio/interfaces/grouppairing_crypto_service_interface.dart';
+import 'package:pairfi/helper_functions.dart';
 import 'package:pointycastle/export.dart';
 import 'package:pointycastle/key_derivators/ecdh_kdf.dart';
 

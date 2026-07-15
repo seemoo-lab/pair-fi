@@ -34,7 +34,10 @@ if (project.hasProperty('dart-defines')) {
 
 def keystoreProperties = new Properties()
 def keystorePropertiesFile = rootProject.file('key.properties')
-if (keystorePropertiesFile.exists()) {
+def hasReleaseSigning = keystorePropertiesFile.exists()
+def hasDartEnvSigning = dartEnvironmentVariables.KEY_PASSWORD
+def communityBuild = System.getenv("COMMUNITY_BUILD") == "true"
+if (hasReleaseSigning) {
     println "Using keystorePropertiesFile"
     println keystorePropertiesFile
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
@@ -48,40 +51,52 @@ if (keystorePropertiesFile.exists()) {
     println "No key properties defined"
 }
 
-//android {
-//    ...
-//}
-
-
 android {
-    compileSdkVersion 34
+    compileSdkVersion 35
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
     defaultConfig {
-        applicationId "de.seemoo.pairsonic"
-        minSdkVersion 23 //was 16
-        targetSdkVersion 34
+        applicationId "de.seemoo.pairfi"
+        minSdkVersion 23
+        targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
     }
 
     signingConfigs {
-        release {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
-            storePassword keystoreProperties['storePassword']
+        if (hasReleaseSigning || hasDartEnvSigning) {
+            release {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                storePassword keystoreProperties['storePassword']
+            }
         }
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            if (hasReleaseSigning || hasDartEnvSigning) {
+                println "Using official release signing configuration"
+                signingConfig signingConfigs.release
+            } else if (communityBuild) {
+                println "Using debug signing for community release build"
+                signingConfig signingConfigs.debug
+            } else {
+                throw new GradleException(
+                    "Release signing is not configured. " +
+                    "Provide android/key.properties or set COMMUNITY_BUILD=true."
+                )
+            }
+
+            minifyEnabled true
+            shrinkResources true
         }
     }
+    namespace 'de.seemoo.pairfi'
 }
 
 flutter {
@@ -89,6 +104,7 @@ flutter {
 }
 
 dependencies {
+    implementation("com.google.code.findbugs:jsr305:3.0.2")
     implementation 'com.android.support:multidex:2.0.1' //enter the latest multidex version
     implementation 'androidx.work:work-runtime-ktx:2.8.0-alpha03'
     implementation 'com.google.android.material:material:1.12.0'

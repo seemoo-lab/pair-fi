@@ -7,8 +7,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:messagepack/messagepack.dart';
-import 'package:pairsonic/helper_functions.dart';
-import 'package:pairsonic/service_locator.dart';
+import 'package:pairfi/helper_functions.dart';
+import 'package:pairfi/service_locator.dart';
 import 'package:typed_data/typed_data.dart';
 
 import 'grouppairing_helper.dart';
@@ -50,7 +50,7 @@ class GPWifiP2pCommunication implements GroupPairingCommunicationInterface {
   /// The received main reveals.
   final List<GPMainReveal> _mainReveals = [];
 
-  /// The receied match reveals.
+  /// The received match reveals.
   final List<GPMatchWrongReveal> _matchReveals = [];
 
   /// The received wrong reveals.
@@ -121,8 +121,7 @@ class GPWifiP2pCommunication implements GroupPairingCommunicationInterface {
         if (clientSocket == null) {
           throw Exception("Could not connect to coordinator in time. Try to turn WiFi off and on again.");
         }
-        debugPrint(
-            "GPWifiP2pCommunication - _joinGroup: Connected to server ($_connectionInfo)");
+        debugPrint("GPWifiP2pCommunication - _joinGroup: Connected to server ($_connectionInfo)");
         _connections[clientSocket] = _ProtocolConnection(clientSocket, this);
         clientSocket.listen((data) => _processMessage(clientSocket, data),
             onError: (error) {
@@ -139,7 +138,7 @@ class GPWifiP2pCommunication implements GroupPairingCommunicationInterface {
           _connections.values.first.receivedReady) {
         // Even if we are connected, we need to wait until the server has
         // sent us the ready message.
-        // When we haved received this message, the connection is established.
+        // When we have received this message, the connection is established.
         return true;
       } else {
         return false;
@@ -162,7 +161,6 @@ class GPWifiP2pCommunication implements GroupPairingCommunicationInterface {
   @override
   Uint8List getInitData() {
     final bytesBuilder = BytesBuilder();
-    bytesBuilder.addByte(1);
     final p = Packer();
     p.packInt(_participantCount);
     p.packString(_groupInfo!.ssid);
@@ -268,12 +266,10 @@ class GPWifiP2pCommunication implements GroupPairingCommunicationInterface {
     }
     // Create a TCP server socket that accepts all incoming connections and
     // adds them to [connections].
-    _serverSocket =
-        await ServerSocket.bind(InternetAddress.anyIPv4, socketPort);
+    _serverSocket = await ServerSocket.bind(InternetAddress.anyIPv4, socketPort);
     debugPrint("GPWifiP2pCommunication - _createGroup: Server is bound");
     _serverSocket!.listen((client) {
-      debugPrint(
-          "GPWifiP2pCommunication: Client connected (${client.remoteAddress.toString()})");
+      debugPrint("GPWifiP2pCommunication: Client connected (${client.remoteAddress.toString()})");
       _connections[client] = _ProtocolConnection(client, this);
 
       client.listen((data) => _processMessage(client, data), onError: (error) {
@@ -321,8 +317,7 @@ class GPWifiP2pCommunication implements GroupPairingCommunicationInterface {
 
   /// Creates a new [GPWifiP2pCommunication] from given [initData].
   static Future<GPWifiP2pCommunication> fromInitData(Uint8List initData) async {
-    assert(initData[0] == 1);
-    final msgpack = Uint8List.sublistView(initData, 1, initData.length);
+    final msgpack = Uint8List.sublistView(initData, 0, initData.length);
     final u = Unpacker.fromList(msgpack);
     final participantCount = u.unpackInt();
     final ssid = u.unpackString();

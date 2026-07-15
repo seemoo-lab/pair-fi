@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pairsonic/constants.dart';
-import 'package:pairsonic/features/pairing/pairing_arguments.dart';
-import 'package:pairsonic/features/pairing/pairing_screen.dart';
-import 'package:pairsonic/features/profile/identity_service.dart';
-import 'package:pairsonic/features/profile/user_model.dart';
-import 'package:pairsonic/features/settings/settings_interface.dart';
-import 'package:pairsonic/generated/l10n.dart';
-import 'package:pairsonic/helper/gui_utility_interface.dart';
-import 'package:pairsonic/service_locator.dart';
+import 'package:pairfi/features/profile/identity_service.dart';
+import 'package:pairfi/features/profile/user_model.dart';
+import 'package:pairfi/generated/l10n.dart';
+import 'package:pairfi/helper/gui_utility_interface.dart';
+import 'package:pairfi/service_locator.dart';
 import 'bottom_info_widget.dart';
 import 'profile_widget.dart';
 
@@ -19,12 +15,10 @@ class ProfileScreen extends StatefulWidget {
       {super.key,
         this.editable = true,
         this.showVerification = false,
-        this.userId = "",
-        this.pairingArguments});
+        this.userId = ""});
   final bool editable;
   final bool showVerification;
   final String userId;
-  final PairingArguments? pairingArguments;
 
   @override
   State<ProfileScreen> createState() => _AddressBookScreenState();
@@ -33,7 +27,6 @@ class ProfileScreen extends StatefulWidget {
 class _AddressBookScreenState extends State<ProfileScreen> {
   final _identityService = getIt<IdentityService>();
   final _localDatabaseService = getIt<GuiUtilityInterface>();
-  final _settingsService = getIt<SettingsService>();
   late User _user;
   late bool _editable = false;
   late bool _showVerification;
@@ -50,9 +43,6 @@ class _AddressBookScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var profilePairingMethod = PairingMethodHelper.fromShortString(
-        _settingsService.getString("profilePairingMethod")) ??
-        PairingMethod.groupAudio;
     FutureBuilder fb;
     if (_id.isNotEmpty) {
       fb = profileWidgetBuilder();
@@ -74,24 +64,6 @@ class _AddressBookScreenState extends State<ProfileScreen> {
       return Scaffold(
         appBar: AppBar(
           title: Text(S.of(context).profile),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PairingScreen(
-                      pairingArgs: PairingArguments(
-                        method: profilePairingMethod,
-                        args: {"allowScan": false, "user": null},
-                      ),
-                    ),
-                  ),
-                );
-              },
-              icon: Icon(profilePairingMethod.getIcon()),
-            ),
-          ],
         ),
         body: fb,
       );
@@ -116,7 +88,6 @@ class _AddressBookScreenState extends State<ProfileScreen> {
             _user,
             edit: _editable,
             showVerification: _showVerification,
-            pairingArguments: widget.pairingArguments,
           );
         } else {
           return const Center(child: CircularProgressIndicator());

@@ -1,8 +1,21 @@
-name: pairsonic
-description: Helping groups securely exchange contact information.
+name: pairfi
+description: A new Flutter project.
 
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.0
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+7
 
 environment:
   sdk: ">=3.2.0 <4.0.0"
@@ -45,24 +58,24 @@ dependencies:
   pointycastle: ^3.6.0
   messagepack: ^0.2.1
 
-  # PairSonic group pairing (audio)
-  ggwave_flutter:
-    git: 
-     url: https://github.com/fput/ggwave_flutter.git
-     ref: cdf3736fe3b38959350e3a452a07f0cf6f375a8b
-  flutter_sound: ^9.2.13
-  volume_control: ^0.1.5
-  convert: ^3.1.1
+  # SafeSlinger group pairing
+  http: ^1.1.2
+  convert: ^3.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   json_serializable: ^6.2.0
   build_runner: ^2.1.11
+#  integration_test: any
   test: any
   flutter_lints: ^3.0.1
 
+# The following section is specific to Flutter.
 flutter:
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
   uses-material-design: true
   assets:
     - assets/

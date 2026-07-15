@@ -1,6 +1,6 @@
-import 'package:pairsonic/features/profile/identity_service.dart';
-import 'package:pairsonic/features/profile/user_model.dart';
-import 'package:pairsonic/service_locator.dart';
+import 'package:pairfi/features/profile/identity_service.dart';
+import 'package:pairfi/features/profile/user_model.dart';
+import 'package:pairfi/service_locator.dart';
 
 import 'storage_interface.dart';
 

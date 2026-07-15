@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pairsonic/features/setup/services/permission_service.dart';
-import 'package:pairsonic/helper/ui/gui_constants.dart';
+import 'package:pairfi/features/pairing/nexmon/ui/state/nexmon_coordinator_state.dart';
+import 'package:pairfi/features/pairing/nexmon/ui/state/nexmon_participant_state.dart';
+import 'package:pairfi/features/setup/services/permission_service.dart';
+import 'package:pairfi/helper/ui/gui_constants.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 import 'constants.dart';
 import 'features/profile/identity_service.dart';
@@ -24,29 +28,31 @@ Future<void> main() async {
   var deviceId = await idService.deviceId;
   debugPrint("Main: device ID is $deviceId");
 
-  runApp(const PairSonicApp());
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+
+  runApp(const PairFiApp());
 }
 
-class PairSonicApp extends StatefulWidget {
-  const PairSonicApp({super.key});
+class PairFiApp extends StatefulWidget {
+  const PairFiApp({super.key});
 
   @override
-  State<PairSonicApp> createState() => _PairSonicAppState();
+  State<PairFiApp> createState() => _PairFiAppState();
 
   static void setLanguage(BuildContext context, String language) async {
-    _PairSonicAppState state =
-    context.findAncestorStateOfType<_PairSonicAppState>()!;
+    _PairFiAppState state =
+    context.findAncestorStateOfType<_PairFiAppState>()!;
     state.setLanguage(language);
   }
 }
 
-class _PairSonicAppState extends State<PairSonicApp> {
+class _PairFiAppState extends State<PairFiApp> {
   final SettingsService _settingsService = getIt<SettingsService>();
   final IdentityService _identityService = getIt<IdentityService>();
 
   Locale _language = const Locale('en'); //Default language
 
-  _PairSonicAppState() {
+  _PairFiAppState() {
     _initDatabase(Database.sqlite);
   }
 
@@ -77,8 +83,13 @@ class _PairSonicAppState extends State<PairSonicApp> {
         builder: (context, AsyncSnapshot<String> snapshot) {
           if (snapshot.hasData) {
             final initialRoute = snapshot.data;
-            return MaterialApp(
-              title: 'PairSonic',
+            return MultiProvider(providers: [
+              ChangeNotifierProvider(create: (context) => NexmonCoordinatorState()),
+              ChangeNotifierProvider(create: (context) => NexmonParticipantState())
+            ],
+            child: MaterialApp(
+              title: 'PairFi',
+              debugShowCheckedModeBanner: false,
               localizationsDelegates: const [
                 S.delegate,
                 GlobalMaterialLocalizations.delegate,
@@ -87,7 +98,7 @@ class _PairSonicAppState extends State<PairSonicApp> {
               ],
               supportedLocales: S.delegate.supportedLocales,
               locale: _language,
-              onGenerateTitle: (BuildContext context) => 'PairSonic',
+              onGenerateTitle: (BuildContext context) => 'PairFi',
               theme: ThemeData(
                 useMaterial3: true,
                 colorScheme: const ColorScheme(
@@ -130,6 +141,7 @@ class _PairSonicAppState extends State<PairSonicApp> {
               ),
               initialRoute: initialRoute,
               routes: AppRouter.routes,
+            )
             );
           } else {
             return const CircularProgressIndicator();
@@ -152,12 +164,10 @@ class _PairSonicAppState extends State<PairSonicApp> {
       case Database.sembast:
         SembastDB sembastDB = SembastDB();
         databaseInterface = sembastDB;
-        // _database = Database.sembast;
         break;
       case Database.sqlite:
         SqlDB sqlDB = SqlDB();
         databaseInterface = sqlDB;
-        // _database = Database.sqlite;
         break;
     }
 

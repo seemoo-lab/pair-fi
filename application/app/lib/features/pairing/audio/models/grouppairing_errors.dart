@@ -3,7 +3,7 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:pairsonic/features/pairing/audio/grouppairing_protocol.dart';
+import 'package:pairfi/features/pairing/audio/grouppairing_protocol.dart';
 
 class BadUserDataException implements GroupPairingException {
   final String userData;

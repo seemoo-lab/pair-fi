@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pairsonic/helper/ui/gui_constants.dart';
+import 'package:pairfi/helper/ui/gui_constants.dart';
 
 class RoleSelectionCardWidget extends StatelessWidget {
   final String assetName;

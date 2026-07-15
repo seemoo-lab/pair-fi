@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pairsonic/features/profile/identity_service.dart';
-import 'package:pairsonic/features/profile/ui/profile_widget.dart';
-import 'package:pairsonic/helper/gui_utility_interface.dart';
-import 'package:pairsonic/helper/ui/button_row.dart';
-import 'package:pairsonic/router/app_routes.dart';
-import 'package:pairsonic/generated/l10n.dart';
-import 'package:pairsonic/service_locator.dart';
+import 'package:pairfi/features/profile/identity_service.dart';
+import 'package:pairfi/features/profile/ui/profile_widget.dart';
+import 'package:pairfi/helper/gui_utility_interface.dart';
+import 'package:pairfi/helper/ui/button_row.dart';
+import 'package:pairfi/router/app_routes.dart';
+import 'package:pairfi/generated/l10n.dart';
+import 'package:pairfi/service_locator.dart';
 
 /// If the app is started the first time, users can create their profile here and read some introduction.
 /// Can be shown later from [SettingsScreen] after first App start.

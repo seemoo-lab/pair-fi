@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pairsonic/generated/l10n.dart';
-import 'package:pairsonic/helper/ui/button_row.dart';
+import 'package:pairfi/generated/l10n.dart';
+import 'package:pairfi/helper/ui/button_row.dart';
 
 enum ErrorWidgetType { timeout, securityError, error }
 
@@ -90,10 +90,10 @@ class ErrorWidgetArgs {
       );
 }
 
-class PairSonicErrorWidget extends StatelessWidget {
+class PairFiErrorWidget extends StatelessWidget {
   final ErrorWidgetArgs? args;
 
-  const PairSonicErrorWidget({super.key, this.args});
+  const PairFiErrorWidget({super.key, this.args});
 
   IconData _getIcon(ErrorWidgetType errorType) {
     switch (errorType) {
@@ -138,64 +138,73 @@ class PairSonicErrorWidget extends StatelessWidget {
     var textStyleDetails = Theme.of(context).textTheme.bodyMedium!.copyWith(
         color: _getTextColor(args.errorType), fontFamily: "Monospace");
 
-    return Scaffold(
-        appBar: args.showAppBar ? AppBar(title: Text(args.title)) : null,
-        body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Icon(_getIcon(args.errorType),
-                        color: _getColor(args.errorType), size: 60),
-                    const SizedBox(width: 10),
-                    Text(args.title,
-                        style: Theme.of(context).textTheme.headlineMedium),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: _getColor(args.errorType)),
-                    child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(children: [
-                          Text(args.description, style: colorText),
-                          args.details != null
-                              ? const SizedBox(height: 10)
-                              : const SizedBox.shrink(),
-                          args.details != null
-                              ? Text(args.details!, style: textStyleDetails)
-                              : const SizedBox.shrink()
-                        ]))),
-                args.retry
-                    ? const SizedBox(height: 30)
-                    : const SizedBox.shrink(),
-                args.retry
-                    ? Expanded(
-                        child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(S.of(context).retryGroupPairing),
-                          const Spacer(),
-                          ButtonRow(
-                            primaryText: S.of(context).groupPairingPromptRetry,
-                            primaryIcon: Icons.replay,
-                            primaryAction: (context) {
-                              args.retryAction?.call(context);
-                            },
-                            secondaryText:
-                                S.of(context).groupPairingPromptCancel,
-                            secondaryIcon: Icons.close_rounded,
-                            secondaryAction: (context) {
-                              args.cancelAction.call(context);
-                            },
-                          ),
-                        ],
-                      ))
-                    : const SizedBox.shrink()
-              ],
-            )));
+    return PopScope(
+        onPopInvoked: (didPop) async {
+          if (context.mounted) {
+            Navigator.of(context).pop();
+          }
+        },
+        child: Scaffold(
+          appBar: args.showAppBar ? AppBar(title: Text(args.title)) : null,
+          body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(_getIcon(args.errorType),
+                          color: _getColor(args.errorType), size: 60),
+                      const SizedBox(width: 10),
+                      Text(args.title,
+                          style: Theme.of(context).textTheme.headlineMedium),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: _getColor(args.errorType)),
+                      child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(children: [
+                            Text(args.description, style: colorText),
+                            args.details != null
+                                ? const SizedBox(height: 10)
+                                : const SizedBox.shrink(),
+                            args.details != null
+                                ? Text(args.details!, style: textStyleDetails)
+                                : const SizedBox.shrink()
+                          ]))),
+                  args.retry
+                      ? const SizedBox(height: 30)
+                      : const SizedBox.shrink(),
+                  args.retry
+                      ? Expanded(
+                          child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(S.of(context).retryGroupPairing),
+                            const Spacer(),
+                            ButtonRow(
+                              primaryText: S.of(context).groupPairingPromptRetry,
+                              primaryIcon: Icons.replay,
+                              primaryAction: (context) {
+                                args.retryAction?.call(context);
+                              },
+                              secondaryText:
+                                  S.of(context).groupPairingPromptCancel,
+                              secondaryIcon: Icons.close_rounded,
+                              secondaryAction: (context) {
+                                args.cancelAction.call(context);
+                              },
+                            ),
+                          ],
+                        ))
+                      : const SizedBox.shrink()
+                ],
+              ),
+          ),
+        ),
+    );
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pairsonic/router/app_routes.dart';
-import 'package:pairsonic/generated/l10n.dart';
+import 'package:pairfi/router/app_routes.dart';
+import 'package:pairfi/generated/l10n.dart';
 
 import 'menu_card_widget.dart';
 
@@ -30,11 +30,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
         MediaQuery.of(context).orientation == Orientation.landscape;
 
     GridView menuCardGrid = GridView.count(
-      crossAxisCount: isLandscape ? 3 : 2,
+      crossAxisCount: isLandscape ? 3 : 1,
       mainAxisSpacing: 8,
       crossAxisSpacing: 8,
       padding: const EdgeInsets.all(6),
-      childAspectRatio: isLandscape ? 1.5 : 1.3,
+      childAspectRatio: isLandscape ? 1.5 : 1.6,
       children: [
         MenuCard(
             icon: Icons.person_rounded,
@@ -47,50 +47,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
         MenuCard(
             icon: Icons.link,
             title: S.of(context).pair,
-            route: AppRoutes.pairing),
+            route: AppRoutes.nexmon),
       ],
     );
 
     return Scaffold(
       key: scaffoldKey,
-      drawer: Drawer(
-        child: SafeArea(
-          child: ListView(
-            children: [
-              // DrawerHeader(child: Text('Main Menu')),
-              _buildDrawerMenuOption(
-                Icons.settings,
-                S.of(context).settings,
-                AppRoutes.settings,
-                context,
-              ),
-            ],
-          ),
-        ),
-      ),
       body: menuCardGrid,
       appBar: AppBar(
-        // leading: IconButton(onPressed: ()=> scaffoldKey.currentState!.openDrawer(), icon: Icon(Icons.monetization_on)),
         title: Text(S.of(context).appName),
-        actions: [
-          IconButton(
-              onPressed: () => Navigator.pushNamed(context, AppRoutes.settings),
-              icon: const Icon(Icons.settings))
-        ],
       ),
-    );
-  }
-
-  ListTile _buildDrawerMenuOption(
-    IconData icon,
-    String title,
-    String route,
-    BuildContext context,
-  ) {
-    return ListTile(
-      leading: Icon(icon),
-      title: Text(title),
-      onTap: () => Navigator.pushNamed(context, route),
     );
   }
 }

@@ -13,11 +13,6 @@ extension KeyPairSerializer on KeyPair {
 }
 
 class CryptoService {
-  // var _identityService = getIt<IdentityService>();
-  // static final CryptoService _instance = CryptoService._();
-  // factory CryptoService() => _instance;
-  // late User _user;
-  // Create storage
   final storage = const FlutterSecureStorage();
   late KeyPair _keyPair;
   late final Sodium sodium;
@@ -31,9 +26,6 @@ class CryptoService {
   }
 
   Future init() async {
-    // maybe reassign on every method call? -> user switched?
-    // _user = _identityService.self;
-    // Read value
     sodium = await SodiumInit.init();
 
     String? keyPairString = await storage.read(key: 'keyPair');

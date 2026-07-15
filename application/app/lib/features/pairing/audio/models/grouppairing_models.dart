@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:convert/convert.dart';
-import 'package:pairsonic/features/pairing/audio/grouppairing_helper.dart';
-import 'package:pairsonic/features/pairing/audio/interfaces/grouppairing_crypto_service_interface.dart';
-import 'package:pairsonic/helper_functions.dart';
+import 'package:pairfi/features/pairing/audio/grouppairing_helper.dart';
+import 'package:pairfi/features/pairing/audio/interfaces/grouppairing_crypto_service_interface.dart';
+import 'package:pairfi/helper_functions.dart';
 import 'package:pointycastle/export.dart';
 
 /// The first commitment submitted by participants
@@ -156,8 +156,7 @@ class GPCommitment {
     var userDataBytes = Uint8List.fromList(utf8.encode(userData));
     encryptedUserData = _cryptoService.encryptUserData(nonceMatch, userDataBytes);
 
-    var commitmentData =
-        concatBytes(concatBytes(hashN, encryptedUserData), dhPublicBytes);
+    var commitmentData = concatBytes(concatBytes(hashN, encryptedUserData), dhPublicBytes);
     commitment = gpDigest(commitmentData);
   }
 

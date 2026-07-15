@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pairsonic/features/profile/identity_service.dart';
-import 'package:pairsonic/features/setup/services/permission_service.dart';
-import 'package:pairsonic/generated/l10n.dart';
-import 'package:pairsonic/helper/location_service_helper.dart';
-import 'package:pairsonic/router/app_routes.dart';
-import 'package:pairsonic/service_locator.dart';
+import 'package:pairfi/features/profile/identity_service.dart';
+import 'package:pairfi/features/setup/services/permission_service.dart';
+import 'package:pairfi/generated/l10n.dart';
+import 'package:pairfi/helper/location_service_helper.dart';
+import 'package:pairfi/router/app_routes.dart';
+import 'package:pairfi/service_locator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -41,7 +41,7 @@ class WelcomeScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyLarge,
                           children: [
                             const TextSpan(
-                                text: "PairSonic",
+                                text: "Pair-Fi",
                                 style: TextStyle(fontWeight: FontWeight.bold)
                             ),
                             TextSpan(

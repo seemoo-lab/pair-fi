@@ -1,6 +1,6 @@
 {
   "zCOMMENT": "Run 'flutter gen-l10n' after changes",
-  "appName": "PairSonic",
+  "appName": "Pair-Fi",
   "profile": "Profile",
   "pair": "Contact Exchange",
   "contacts": "Contacts",
@@ -26,7 +26,7 @@
   "failed": "Failed",
   "welcome": "Welcome",
   "welcomeScreen": "Show welcome screen",
-  "welcomeText": "This is the PairSonic App.",
+  "welcomeText": "This is the PairFi App.",
   "finishedProfile": "The profile is configured. You can now enter the start screen of the app",
   "go": "Start!",
   "enterName": "Please enter a name",
@@ -57,10 +57,10 @@
   "leaveContactImportConfirmationDialogDescription":  "If you exit, no new contacts will be imported.",
   
   "permissionRequiredDialogTitle": "Permission Required",
-  "microphonePermissionRequiredDialogDescription": "For group pairing, PairSonic requires access to your microphone.",
+  "microphonePermissionRequiredDialogDescription": "For group pairing, lokalfunk requires access to your microphone.",
   "microphonePermissionRequiredPromptOpenAppSettings": "Please open the app settings and grant access to your microphone.",
-  "locationPermissionRequiredDialogDescription": "For group pairing, PairSonic requires access to your location.",
-  "locationPermissionRequiredPromptOpenAppSettings": "Please open the app settings and grant PairSonic access to your location.",
+  "locationPermissionRequiredDialogDescription": "For group pairing, lokalfunk requires access to your location.",
+  "locationPermissionRequiredPromptOpenAppSettings": "Please open the app settings and grant lokalfunk access to your location.",
 
   "volumeDialogTitle": "Audio Configuration",
   "volumeDialogDescription": "Please make sure your device volume is at least 75% and pause any other playback.",
@@ -161,6 +161,7 @@
 
   "pairingFailureModeStandard": "Don't simulate",
   "pairingFailureModeFailAlways": "Simulate failure",
+  "pairingFailureModeWebControlled": "Simulate failure dynamically",
 
   "permissionScreenTitle": "Permissions required",
   "permissionScreenIntroText": "This app needs a few permissions while the app is in use in order for the group pairing process to work.",
@@ -180,16 +181,19 @@
   "settingsUltrasoundSpeakerSupportTrue": "Speaker supports Ultrasound",
   "settingsUltrasoundSpeakerSupportFalse": "Speaker doesn't support Ultrasound",
 
-  "welcomeTitle": "Welcome to PairSonic!",
+  "welcomeTitle": "Welcome to PairFi!",
   "welcomeTextFirst": " allows users meeting in person to exchange or verify contact information quickly and securely. The smartphones communicate directly with each other using sound waves, without relying on third parties or the Internet.",
   "profileCreationTitle": "Create profile",
-  "profileCreationHintText": "Before using PairSonic, set up a profile which will be used during the contact exchange. Choose a nice profile picture, a name, and a bio. This profile is currently only used to demonstrate the contact exchange, but you can imagine it being used, for example, in a messaging context.",
+  "profileCreationHintText": "Before using PairFi, set up a profile which will be used during the contact exchange. Choose a nice profile picture, a name, and a bio. This profile is currently only used to demonstrate the contact exchange, but you can imagine it being used, for example, in a messaging context.",
 
   "profileEditButtonEdit": "Edit profile",
 
   "generalButtonNext": "Next",
   "generalButtonDone": "Done",
   "generalButtonBack": "Back",
+  "nexmonRunningTitle": "Contact exchange",
+  "nexmonRunningExchangingInformation": "Exchanging information...",
+  "nexmonRunningDecrypting": "Decrypting...",
 
   "alertLocationServiceTitle": "Location Services disabled",
   "alertLocationServiceMessage": "Please open your device's settings and enable location services in order for pairing to work. We won't use your location, but they have to be enabled due to technical limitations.",

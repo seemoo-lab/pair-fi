@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:pairsonic/constants.dart';
-import 'package:pairsonic/features/pairing/pairing_arguments.dart';
-import 'package:pairsonic/features/pairing/pairing_screen.dart';
-import 'package:pairsonic/features/profile/identity_service.dart';
-import 'package:pairsonic/features/profile/user_model.dart';
-import 'package:pairsonic/features/setup/ui/icon_selection_widget.dart';
-import 'package:pairsonic/generated/l10n.dart';
-import 'package:pairsonic/helper/gui_utility_interface.dart';
-import 'package:pairsonic/service_locator.dart';
+//import 'package:pairfi/constants.dart';
+//import 'package:pairfi/features/pairing/pairing_arguments.dart';
+//import 'package:pairfi/features/pairing/pairing_screen.dart';
+import 'package:pairfi/features/profile/identity_service.dart';
+import 'package:pairfi/features/profile/user_model.dart';
+import 'package:pairfi/features/setup/ui/icon_selection_widget.dart';
+import 'package:pairfi/generated/l10n.dart';
+import 'package:pairfi/helper/gui_utility_interface.dart';
+import 'package:pairfi/service_locator.dart';
 
 /// Widget to show a [User] profile
 ///
@@ -18,7 +18,7 @@ class ProfileWidget extends StatefulWidget {
         this.edit = false,
         this.editMode = false,
         this.showVerification = false,
-        this.pairingArguments,
+        //this.pairingArguments,
         this.onSave,
         this.onInput,
         super.key,
@@ -27,7 +27,7 @@ class ProfileWidget extends StatefulWidget {
   final bool edit;
   final bool editMode;
   final bool showVerification;
-  final PairingArguments? pairingArguments;
+  //final PairingArguments? pairingArguments;
   final Function()? onSave;
   final Function(String, String)? onInput;
 
@@ -42,7 +42,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   late bool _isEditable;
   bool _editMode = false;
   bool _showVerification = false;
-  PairingArguments? _pairingArguments;
+  //PairingArguments? _pairingArguments;
   Function()? _onSave;
   Function(String, String)? _onInput;
 
@@ -56,7 +56,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     _isEditable = widget.edit;
     _editMode = widget.editMode;
     _showVerification = widget.showVerification;
-    _pairingArguments = widget.pairingArguments;
+    //_pairingArguments = widget.pairingArguments;
     _onSave = widget.onSave;
     _onInput = widget.onInput;
   }
@@ -223,35 +223,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   }
 
   List<Widget> maybeReturnButton() {
-    if (_pairingArguments != null) {
-      return [
-        const Spacer(flex: 3),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FittedBox(
-              child: FloatingActionButton.extended(
-                heroTag: "back",
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PairingScreen(
-                        pairingArgs: _pairingArguments,
-                      ),
-                    ),
-                  );
-                },
-                backgroundColor: Colors.lightBlueAccent,
-                icon: const Icon(Icons.arrow_back),
-                label: Text("Back to ${_pairingArguments!.method.readableName(context)}-pairing"),
-              ),
-            ),
-          ),
-        ),
-        const Spacer(),
-      ];
-    }
     return [];
   }
 }

@@ -3,8 +3,8 @@ library;
 
 import 'dart:convert';
 
-import 'package:pairsonic/features/pairing/audio/grouppairing_constants.dart';
-import 'package:pairsonic/features/profile/user_model.dart';
+import 'package:pairfi/features/pairing/audio/grouppairing_constants.dart';
+import 'package:pairfi/features/profile/user_model.dart';
 
 import 'audio/models/grouppairing_errors.dart';
 
@@ -17,6 +17,5 @@ User? userJsonParserFunction(String userData) {
   // we run group pairing => the user is verified
   json["verified"] = 1;
   var user = User.fromMap(json);
-  // TODO possibly add more verifications
   return user;
 }

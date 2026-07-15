@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pairsonic/features/pairing/success_list_data.dart';
-import 'package:pairsonic/generated/l10n.dart';
-import 'package:pairsonic/helper/ui/animated_icon.dart';
-import 'package:pairsonic/helper/ui/button_row.dart';
-import 'package:pairsonic/helper/ui/hint_text_card.dart';
-import 'package:pairsonic/router/app_routes.dart';
+import 'package:pairfi/features/pairing/success_list_data.dart';
+import 'package:pairfi/generated/l10n.dart';
+import 'package:pairfi/helper/ui/animated_icon.dart';
+import 'package:pairfi/helper/ui/button_row.dart';
+import 'package:pairfi/helper/ui/hint_text_card.dart';
+import 'package:pairfi/router/app_routes.dart';
 
 import 'user_list_card.dart';
 

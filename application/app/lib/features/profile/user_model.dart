@@ -12,7 +12,7 @@ class User {
   static const String localDbTableName = "tbl_user";
   //https://icons8.com/icon/set/culture/color--static
   //Add to fav
-  //Download 100px
+  //Fownload 100px
   //Python script:
   /*
     from PIL import Image

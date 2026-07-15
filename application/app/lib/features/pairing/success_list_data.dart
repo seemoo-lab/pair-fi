@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pairsonic/features/profile/user_model.dart';
-import 'package:pairsonic/generated/l10n.dart';
-import 'package:pairsonic/helper/gui_utility_interface.dart';
-import 'package:pairsonic/helper/ui/gui_constants.dart';
-import 'package:pairsonic/service_locator.dart';
+import 'package:pairfi/features/profile/user_model.dart';
+import 'package:pairfi/generated/l10n.dart';
+import 'package:pairfi/helper/gui_utility_interface.dart';
+import 'package:pairfi/helper/ui/gui_constants.dart';
+import 'package:pairfi/service_locator.dart';
 
 class SuccessListData {
   Map<int, User> receivedUsers;

@@ -3,9 +3,9 @@ library;
 
 import 'dart:typed_data';
 
-import 'package:pairsonic/features/pairing/audio/models/grouppairing_models.dart';
-import 'package:pairsonic/features/pairing/audio/test/mock_communication.dart';
-import 'package:pairsonic/features/pairing/audio/wifip2p_communication.dart';
+import 'package:pairfi/features/pairing/audio/models/grouppairing_models.dart';
+//import 'package:pairfi/features/pairing/audio/test/mock_communication.dart';
+import 'package:pairfi/features/pairing/audio/wifip2p_communication.dart';
 
 /// Interface that is to be implemented to provide
 /// different communication options for the group pairing protocol.
@@ -19,14 +19,8 @@ abstract class GroupPairingCommunicationInterface {
   static Future<GroupPairingCommunicationInterface> fromInitData(
       Uint8List initData) async {
     switch (initData[0]) {
-      case 1:
-        return await GPWifiP2pCommunication.fromInitData(initData);
-      case 99:
-        // Not further init required for mock implementation
-        return GrouppairingMockCommunication(initData[1]);
       default:
-        throw UnimplementedError(
-            "Unknown GrouppairingCommunication type requested");
+        return await GPWifiP2pCommunication.fromInitData(initData);
     }
   }
 
